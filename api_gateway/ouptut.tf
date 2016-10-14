@@ -13,3 +13,7 @@ output "endpoint_url" {
 output "endpoint_host" {
 	value = "${aws_api_gateway_rest_api.main.id}.execute-api.${var.aws_region}.amazonaws.com"
 }
+
+output "name" {
+  value = "${aws_api_gateway_rest_api.main.name}"
+}
