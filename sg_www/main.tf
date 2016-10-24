@@ -16,13 +16,6 @@ resource "aws_security_group" "main" {
       cidr_blocks = ["${var.cidr}"]
   }
 
-  ingress {
-      from_port = "${var.redshift_port}"
-      to_port = "${var.redshift_port}"
-      protocol = "tcp"
-      cidr_blocks = ["0.0.0.0/0"]
-  }
-
   vpc_id = "${var.vpc_id}"
 
   tags {
