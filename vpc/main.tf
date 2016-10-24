@@ -64,13 +64,6 @@ resource "aws_security_group" "allow_all" {
       cidr_blocks = ["0.0.0.0/0"]
   }
 
-  ingress {
-      from_port = "${var.redshift_port}"
-      to_port = "${var.redshift_port}"
-      protocol = "tcp"
-      cidr_blocks = ["0.0.0.0/0"]
-  }
-
   vpc_id = "${aws_vpc.main.id}"
 
   tags {
