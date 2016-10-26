@@ -41,8 +41,8 @@ resource "aws_main_route_table_association" "a" {
 }
 
 resource "aws_security_group" "allow_all" {
-  name = "allow_all"
-  description = "Allow all inbound traffic"
+  name_prefix = "allow_all-internal"
+  description = "Allow all inbound traffic within VPC"
 
   ingress {
       from_port = 0
