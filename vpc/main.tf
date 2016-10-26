@@ -10,7 +10,11 @@ resource "aws_vpc" "main" {
 }
 
 resource "aws_internet_gateway" "main" {
-  vpc_id = "${aws_vpc.main.id}"
+    vpc_id = "${aws_vpc.main.id}"
+
+    tags {
+        Name = "${var.name}"
+    }
 }
 
 resource "aws_subnet" "public" {
@@ -40,21 +44,11 @@ resource "aws_main_route_table_association" "a" {
     route_table_id = "${aws_route_table.r.id}"
 }
 
-resource "aws_security_group" "allow_all" {
-  name_prefix = "allow_all-internal"
-  description = "Allow all inbound traffic within VPC"
-
+resource "aws_default_security_group" "default" {
   ingress {
       from_port = 0
-      to_port = 65535
-      protocol = "tcp"
-      self = true
-  }
-
-  ingress {
-      from_port = 0
-      to_port = 65535
-      protocol = "udp"
+      to_port = 0
+      protocol = "-1"
       self = true
   }
 
@@ -65,9 +59,16 @@ resource "aws_security_group" "allow_all" {
       cidr_blocks = ["0.0.0.0/0"]
   }
 
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
   vpc_id = "${aws_vpc.main.id}"
 
   tags {
-    Name = "${var.name}-allow-all"
+    Name = "default-${var.name}"
   }
 }
