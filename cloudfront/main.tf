@@ -4,7 +4,7 @@ resource "aws_cloudfront_distribution" "main" {
     origin_id   = "S3-${var.s3_origin}"
 
     s3_origin_config {
-      # origin_access_identity = "${aws_cloudfront_origin_access_identity.main.cloudfront_access_identity_path}"
+      origin_access_identity = "${aws_cloudfront_origin_access_identity.main.cloudfront_access_identity_path}"
     }
 
     # custom_origin_config {
@@ -60,6 +60,6 @@ resource "aws_cloudfront_distribution" "main" {
   }
 }
 
-# resource "aws_cloudfront_origin_access_identity" "main" {
-#   comment = "${var.s3_origin}"
-# }
+resource "aws_cloudfront_origin_access_identity" "main" {
+  comment = "${var.s3_origin}"
+}
