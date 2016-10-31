@@ -12,6 +12,12 @@ variable "records" {
 	type = "list"
 }
 
+variable "ttl" {
+  type = "string"
+  description = "Time to live in seconds"
+  default = "30"
+}
+
 # variable "record" {
 # 	default = ""
 # }
