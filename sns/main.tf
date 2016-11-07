@@ -13,14 +13,14 @@ resource "aws_cloudwatch_log_stream" "main" {
 }
 
 resource "aws_sns_topic_subscription" "subs" {
-    topic_arn = "${var.sns_arn}"
+    topic_arn = "${aws_sns_topic.main.arn}"
     protocol  = "application"
     endpoint  = "${aws_cloudwatch_log_group.main.name}"
     endpoint_auto_confirms = true
 }
 
 resource "aws_sns_topic_policy" "custom" {
-  arn = "${aws_sns_topic.test.arn}"
+  arn = "${aws_sns_topic.main.arn}"
   policy = <<POLICY
 {
   "Version": "2012-10-17",
