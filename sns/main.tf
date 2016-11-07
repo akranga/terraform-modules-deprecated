@@ -2,8 +2,25 @@ resource "aws_sns_topic" "main" {
   name = "${var.name}"
 }
 
+resource "aws_cloudwatch_log_group" "main" {
+  name = "${var.name}"
+  retention_in_days = 1
+}
+
+resource "aws_cloudwatch_log_stream" "main" {
+  name           = "${var.name}"
+  log_group_name = "${aws_cloudwatch_log_group.main.name}"
+}
+
+resource "aws_sns_topic_subscription" "subs" {
+    topic_arn = "${var.sns_arn}"
+    protocol  = "application"
+    endpoint  = "${aws_cloudwatch_log_group.main.name}"
+    endpoint_auto_confirms = true
+}
+
 resource "aws_sns_topic_policy" "custom" {
-  arn = "${aws_sns_topic.main.arn}"
+  arn = "${aws_sns_topic.test.arn}"
   policy = <<POLICY
 {
   "Version": "2012-10-17",
@@ -13,31 +30,15 @@ resource "aws_sns_topic_policy" "custom" {
     "Effect": "Allow",
     "Principal": {"AWS":"*"},
     "Action": [
+      "SNS:Publish",
       "SNS:GetTopicAttributes",
-      "SNS:SetTopicAttributes",
-      "SNS:AddPermission",
-      "SNS:RemovePermission",
-      "SNS:DeleteTopic"
+      "logs:CreateLogGroup",
+      "logs:CreateLogStream",
+      "logs:PutLogEvents",
+      "logs:DescribeLogStreams"
     ],
     "Resource": "${aws_sns_topic.main.arn}"
   }]
 }
 POLICY
 }
-
-# resource "aws_iam_role_policy" "allow_autoscaling" {
-#     name = "${var.name}-allow-autosclaling"
-#     role = "${var.role_arn}"
-#     policy=<<EOF
-# {
-#   "Version": "2012-10-17",
-#   "Statement": [ {
-#       "Effect": "Allow",
-#       "Resource": "${aws_sns_topic.main.arn}",
-#       "Action": [
-#         "sns:Publish"
-#       ]
-#   } ]
-# }
-# EOF
-# }
