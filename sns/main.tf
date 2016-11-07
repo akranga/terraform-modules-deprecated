@@ -30,8 +30,8 @@ resource "aws_sns_topic_policy" "custom" {
     "Effect": "Allow",
     "Principal": {"AWS":"*"},
     "Action": [
-      "SNS:Publish",
-      "SNS:GetTopicAttributes",
+      "sns:Publish",
+      "sns:GetTopicAttributes",
       "logs:CreateLogGroup",
       "logs:CreateLogStream",
       "logs:PutLogEvents",
