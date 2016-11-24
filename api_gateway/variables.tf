@@ -7,5 +7,5 @@ variable "stage_name" {
 }
 
 variable "description" {
-	default = "Cloud-analytics API gateway"
+	default = "API gateway"
 }
