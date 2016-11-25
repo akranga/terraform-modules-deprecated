@@ -9,3 +9,10 @@ variable "stage_name" {
 variable "description" {
 	default = "API gateway"
 }
+
+variable "stage_vars" {
+  type = "map"
+  description = "API Gateway variables"
+  default = {
+  }
+}

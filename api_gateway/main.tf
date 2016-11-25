@@ -35,11 +35,8 @@ resource "aws_api_gateway_deployment" "dev" {
                 "aws_api_gateway_integration.root"]  # No integration defined for method 
 
   rest_api_id = "${aws_api_gateway_rest_api.main.id}"
-  stage_name = "${var.stage_name}"
-
-  # variables {
-  #   "answer" = "42"
-  # }
+  stage_name  = "${var.stage_name}"
+  variables   = "${var.stage_vars}"
 }
 
 resource "aws_api_gateway_integration_response" "200" {
