@@ -30,7 +30,6 @@ resource "aws_api_gateway_integration_response" "200" {
   resource_id       = "${aws_api_gateway_resource.main.id}"
   http_method       = "${aws_api_gateway_method.main.http_method}"
   status_code       = "${aws_api_gateway_method_response.200.status_code}"
-  selection_pattern = "-"
 }
 
 resource "aws_api_gateway_method_response" "200" {
@@ -48,5 +47,5 @@ resource "aws_lambda_permission" "with_apig" {
     # lifecycle {
     #   prevent_destroy = true
     # }
-    # source_arn    = "arn:aws:execute-api:${element(split(":", "${var.lambda_arn}"), 3)}:${element(split(":", "${var.lambda_arn}"), 4)}:${var.rest_api_id}/*/${aws_api_gateway_method.main.http_method}${aws_api_gateway_resource.main.path}"
+    source_arn    = "arn:aws:execute-api:${element(split(":", "${var.lambda_arn}"), 3)}:${element(split(":", "${var.lambda_arn}"), 4)}:${var.rest_api_id}/*/${aws_api_gateway_method.main.http_method}${aws_api_gateway_resource.main.path}"
 }

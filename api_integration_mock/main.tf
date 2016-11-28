@@ -26,7 +26,7 @@ resource "aws_api_gateway_integration_response" "200" {
   resource_id       = "${aws_api_gateway_resource.main.id}"
   http_method       = "${var.method}"
   status_code       = "${aws_api_gateway_method_response.200.status_code}"
-  selection_pattern = "-"
+  # selection_pattern = "-"
 }
 
 resource "aws_api_gateway_method_response" "200" {
