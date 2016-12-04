@@ -1,6 +1,6 @@
 resource "aws_route53_record" "record" {
   zone_id = "${var.r53_zone_id}"
-  name    = "${var.name}.${var.r53_domain}"
+  name    = "${join(".", compact(split(".", "${var.name}.${var.r53_domain}")))}"
   type    = "${var.type}"
   alias {
     name    = "${var.alias_name}"

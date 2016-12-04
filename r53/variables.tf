@@ -1,8 +1,12 @@
-variable "name" {}
+variable "name" {
+    default = ""
+}
 
 variable "r53_zone_id" {}
 
-variable "r53_domain" {}
+variable "r53_domain" {
+    default = ""
+}
 
 variable "type" {
 	default = "CNAME"
