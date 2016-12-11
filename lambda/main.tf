@@ -4,10 +4,11 @@ resource "aws_lambda_function" "main" {
     runtime          = "${var.runtime}"
     role             = "${aws_iam_role.iam_for_lambda.arn}"
     handler          = "${var.handler}"
-    # source_code_hash = "${base64sha256(file("${var.zip_file}"))}"
     memory_size      = "${var.ram}"
     timeout          = "${var.timeout}"
     publish          = true
+    kms_key_arn      = "${var.kms_arn}"
+    variables        = "${var.variables}"
     vpc_config {
       subnet_ids         = ["${var.subnet_ids}"]
       security_group_ids = ["${var.security_groups}"]
@@ -19,8 +20,6 @@ resource "aws_lambda_alias" "latest" {
     description = "Alias that points to the lambda latest tag"
     function_name = "${aws_lambda_function.main.arn}"
     function_version = "$LATEST"
-    kms_key_arn = "${var.kms_arn}"
-    variables = "${var.variables}"
 }
 
 resource "aws_iam_role" "iam_for_lambda" {
