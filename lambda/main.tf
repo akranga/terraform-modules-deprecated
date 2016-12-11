@@ -7,20 +7,22 @@ resource "aws_lambda_function" "main" {
     memory_size      = "${var.ram}"
     timeout          = "${var.timeout}"
     publish          = true
-    kms_key_arn      = "${var.kms_arn}"
-    variables        = "${var.variables}"
+    kms_key_arn      = "${var.kms_key_arn}"
+    environment {
+      variables        = "${var.variables}"
+    }
     vpc_config {
       subnet_ids         = ["${var.subnet_ids}"]
       security_group_ids = ["${var.security_groups}"]
     }
 }
 
-resource "aws_lambda_alias" "latest" {
-    name = "latest"
-    description = "Alias that points to the lambda latest tag"
-    function_name = "${aws_lambda_function.main.arn}"
-    function_version = "$LATEST"
-}
+# resource "aws_lambda_alias" "latest" {
+#     name = "${uuid()}"
+#     description = "Alias that points to the lambda latest tag"
+#     function_name = "${aws_lambda_function.main.arn}"
+#     function_version = "$LATEST"
+# }
 
 resource "aws_iam_role" "iam_for_lambda" {
     name_prefix = "invoke-"

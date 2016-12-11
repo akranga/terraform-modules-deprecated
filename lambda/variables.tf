@@ -45,7 +45,7 @@ variable "zip_file" {
   default = ""
 }
 
-variable "kms_arn" {
+variable "kms_key_arn" {
   type = "string"
   description = "ARN of the KMS key to store sensitive information for lambda"
   default = ""

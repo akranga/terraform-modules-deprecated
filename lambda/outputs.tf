@@ -1,10 +1,10 @@
-output "arn" {
-  value = "${aws_lambda_function.main.arn}"
-}
+# output "arn" {
+#   value = "${aws_lambda_function.main.arn}"
+# }
 
-output "alias" {
-  value = "${aws_lambda_alias.latest.name}"
-}
+# output "alias" {
+#   value = "${aws_lambda_alias.latest.name}"
+# }
 
 output "version" {
   value = "${aws_lambda_function.main.version}"
