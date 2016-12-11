@@ -45,6 +45,19 @@ variable "zip_file" {
   default = ""
 }
 
+variable "kms_arn" {
+  type = "string"
+  description = "ARN of the KMS key to store sensitive information for lambda"
+  default = ""
+}
+
+variable "variables" {
+  type = "map"
+  description = "AWS Lambda environment variables"
+  default = {
+  }
+}
+
 variable "policy" {
   type = "string"
   description = "Execution policy for lambda"

@@ -19,6 +19,8 @@ resource "aws_lambda_alias" "latest" {
     description = "Alias that points to the lambda latest tag"
     function_name = "${aws_lambda_function.main.arn}"
     function_version = "$LATEST"
+    kms_key_arn = "${var.kms_arn}"
+    variables = "${var.variables}"
 }
 
 resource "aws_iam_role" "iam_for_lambda" {
