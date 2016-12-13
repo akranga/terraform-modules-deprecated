@@ -7,7 +7,7 @@ resource "aws_lambda_function" "main" {
     memory_size      = "${var.ram}"
     timeout          = "${var.timeout}"
     publish          = true
-    kms_key_arn      = "${var.kms_key_arn}"
+    # kms_key_arn      = "${var.kms_key_arn}"
     environment {
       variables        = "${var.variables}"
     }
