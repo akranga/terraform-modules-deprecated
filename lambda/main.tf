@@ -11,10 +11,10 @@ resource "aws_lambda_function" "main" {
     environment {
       variables        = "${var.variables}"
     }
-    vpc_config {
-      subnet_ids         = ["${var.subnet_ids}"]
-      security_group_ids = ["${var.security_groups}"]
-    }
+    # vpc_config {
+    #   subnet_ids         = ["${var.subnet_ids}"]
+    #   security_group_ids = ["${var.security_groups}"]
+    # }
 }
 
 # resource "aws_lambda_alias" "latest" {
