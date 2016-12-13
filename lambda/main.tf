@@ -8,9 +8,9 @@ resource "aws_lambda_function" "main" {
     timeout          = "${var.timeout}"
     publish          = true
     # kms_key_arn      = "${var.kms_key_arn}"
-    environment {
-      variables        = "${var.variables}"
-    }
+    # environment {
+    #   variables        = "${var.variables}"
+    # }
     # vpc_config {
     #   subnet_ids         = ["${var.subnet_ids}"]
     #   security_group_ids = ["${var.security_groups}"]
