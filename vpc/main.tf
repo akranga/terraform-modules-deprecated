@@ -57,7 +57,7 @@ resource "aws_vpc_dhcp_options" "main" {
     netbios_node_type = 2
 
     tags {
-        Name = "foo-name"
+        Name = "${var.name}"
     }
 }
 
