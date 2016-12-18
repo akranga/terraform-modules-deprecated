@@ -44,22 +44,22 @@ resource "aws_main_route_table_association" "a" {
     route_table_id = "${aws_route_table.r.id}"
 }
 
-resource "aws_vpc_dhcp_options_association" "dns_resolver" {
-    vpc_id = "${aws_vpc.main.id}"
-    dhcp_options_id = "${aws_vpc_dhcp_options.main.id}"
-}
+# resource "aws_vpc_dhcp_options_association" "dns_resolver" {
+#     vpc_id = "${aws_vpc.main.id}"
+#     dhcp_options_id = "${aws_vpc_dhcp_options.main.id}"
+# }
 
-resource "aws_vpc_dhcp_options" "main" {
-    domain_name = "${var.domain_name}"
-    domain_name_servers = ["${var.dns_servers}"]
-    ntp_servers = ["127.0.0.1"]
-    netbios_name_servers = ["127.0.0.1"]
-    netbios_node_type = 2
+# resource "aws_vpc_dhcp_options" "main" {
+#     domain_name = "${var.domain_name}"
+#     domain_name_servers = ["${var.dns_servers}"]
+#     ntp_servers = ["127.0.0.1"]
+#     netbios_name_servers = ["127.0.0.1"]
+#     netbios_node_type = 2
 
-    tags {
-        Name = "${var.name}"
-    }
-}
+#     tags {
+#         Name = "${var.name}"
+#     }
+# }
 
 resource "aws_default_security_group" "default" {
   ingress {
