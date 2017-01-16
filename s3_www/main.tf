@@ -61,3 +61,11 @@ POLICY
 #   source       = "${path.module}/index.html"
 #   content_type = "text/html"
 # }
+
+resource "null_resource" "s3_sync" {
+  depends_on = ["aws_s3_bucket.main"]
+
+  provisioner "local-exec" {
+    command = "${var.init_script}"
+  }
+}

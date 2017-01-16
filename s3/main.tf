@@ -19,3 +19,11 @@ resource "aws_s3_bucket" "main" {
 #       target_prefix = "log/"
 #    }
 }
+
+resource "null_resource" "s3_sync" {
+  depends_on = ["aws_s3_bucket.main"]
+
+  provisioner "local-exec" {
+    command = "${var.init_script}"
+  }
+}
