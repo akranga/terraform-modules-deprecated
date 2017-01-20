@@ -17,3 +17,9 @@ variable "dns_servers" {
   description = "Default DNS recursors"
   default = ["10.0.0.2", "8.8.8.8"]
 }
+
+variable "availability_zone" {
+  type = "string"
+  description "Availability zone for default subnet"
+  default = ""
+}

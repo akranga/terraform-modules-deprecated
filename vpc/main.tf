@@ -21,7 +21,7 @@ resource "aws_subnet" "public" {
     vpc_id = "${aws_vpc.main.id}"
     cidr_block = "10.0.0.0/24"
     map_public_ip_on_launch = "${var.assign_public_ip}"
-
+    availability_zone = "${var.availability_zone}"
     tags {
         Name = "${var.name}"
     }
