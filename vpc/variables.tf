@@ -20,6 +20,6 @@ variable "dns_servers" {
 
 variable "availability_zone" {
   type = "string"
-  description "Availability zone for default subnet"
+  description = "Availability zone for default subnet"
   default = ""
 }
