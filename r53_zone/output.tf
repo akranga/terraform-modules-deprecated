@@ -9,3 +9,7 @@ output "domain" {
 output "name" {
   value = "${var.name}"
 }
+
+output "fqdn" {
+  value = "${join(".", compact(split(".", "${aws_route53_zone.main.name}")))}"
+}
