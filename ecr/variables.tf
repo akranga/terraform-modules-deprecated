@@ -11,7 +11,7 @@ variable "policy" {
     "Version": "2008-10-17",
     "Statement": [
         {
-            "Sid": "${uuid()}",
+            "Sid": "",
             "Effect": "Allow",
             "Principal": "*",
             "Action": [
