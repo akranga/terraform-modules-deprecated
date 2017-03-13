@@ -1,0 +1,11 @@
+{
+  "jobQueueName": "${name}",
+  "state": "ENABLED",
+  "priority": ${priority},
+  "computeEnvironmentOrder": [
+    {
+      "order": ${order},
+      "computeEnvironment": "${compute_env}"
+    }
+  ]
+}

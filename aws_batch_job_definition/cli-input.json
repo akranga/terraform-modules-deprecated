@@ -1,0 +1,15 @@
+{
+  "jobDefinitionName": "${name}",
+  "type": "container",
+  "parameters": ${parameters},
+  "containerProperties": {
+    "image": "${docker_image}",
+    "vcpus": ${vcpus},
+    "memory": ${memory},
+    "command": ${command},
+    "jobRoleArn": "${role_arn}",
+    "volumes": [],
+    "mountPoints": [],
+    "ulimits": []
+  }
+}

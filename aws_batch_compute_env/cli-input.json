@@ -1,0 +1,19 @@
+{
+  "computeEnvironmentName": "${name}",
+  "type": "MANAGED",
+  "state": "ENABLED",
+  "computeResources": {
+    "type": "${type}",
+    "spotIamFleetRole": "${spot_fleet_role}",
+    "bidPercentage": ${bid_percent},
+    "minvCpus": ${min_cpus},
+    "maxvCpus": ${max_cpus},
+    "desiredvCpus": ${desired_cpus},
+    "instanceTypes": ${instance_types},
+    "subnets": ${subnet_ids},
+    "securityGroupIds": ${security_group_ids},
+    "ec2KeyPair": "${ec2_keypair}",
+    "instanceRole": "${instance_profile}"
+  },
+  "serviceRole": "${service_role}"
+}
