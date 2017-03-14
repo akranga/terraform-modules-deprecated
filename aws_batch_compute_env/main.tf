@@ -133,76 +133,11 @@ resource "aws_iam_role_policy_attachment" "atta1" {
 resource "aws_iam_role" "service_role" {
   name_prefix  = "${var.name}"
   path = "/"
-  assume_role_policy = "${var.service_role_policy}"
+  assume_role_policy = "${var.service_role_trust_policy}"
 }
 
 resource "aws_iam_policy" "service" {
   name = "${var.name}-AWSBatchServiceRole"
   description = "Allows batch execution on ${var.name} compute environment"
-  policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": [
-        "ec2:DescribeAccountAttributes",
-        "ec2:DescribeImages",
-        "ec2:DescribeInstances",
-        "ec2:DescribeSnapshots",
-        "ec2:DescribeSubnets",
-        "ec2:DescribeSecurityGroups",
-        "ec2:DescribeTags",
-        "ec2:DescribeKeyPairs",
-        "ec2:DescribeSpotFleetInstances",
-        "ec2:DescribeSpotFleetRequests",
-        "ec2:DescribeSpotPriceHistory",
-        "ec2:RequestSpotFleet",
-        "ec2:CancelSpotFleetRequests",
-        "ec2:ModifySpotFleetRequest",
-        "ec2:TerminateInstances",
-        "autoscaling:DescribeAccountLimits",
-        "autoscaling:DescribeAutoScalingGroups",
-        "autoscaling:DescribeLaunchConfigurations",
-        "autoscaling:DescribeAutoScalingInstances",
-        "autoscaling:CreateLaunchConfiguration",
-        "autoscaling:CreateAutoScalingGroup",
-        "autoscaling:UpdateAutoScalingGroup",
-        "autoscaling:SetDesiredCapacity",
-        "autoscaling:DeleteLaunchConfiguration",
-        "autoscaling:DeleteAutoScalingGroup",
-        "autoscaling:CreateOrUpdateTags",
-        "autoscaling:SuspendProcesses",
-        "autoscaling:PutNotificationConfiguration",
-        "autoscaling:TerminateInstanceInAutoScalingGroup",
-        "ecs:DescribeClusters",
-        "ecs:DescribeContainerInstances",
-        "ecs:DescribeTaskDefinitions",
-        "ecs:DescribeTasks",
-        "ecs:DeleteCluster",
-        "ecs:ListClusters",
-        "ecs:ListContainerInstances",
-        "ecs:ListTaskDefinitionFamilies",
-        "ecs:ListTaskDefinitions",
-        "ecs:ListTasks",
-        "ecs:CreateCluster",
-        "ecs:DeleteCluster",
-        "ecs:RegisterTaskDefinition",
-        "ecs:DeregisterTaskDefinition",
-        "ecs:RunTask",
-        "ecs:StartTask",
-        "ecs:StopTask",
-        "ecs:UpdateContainerAgent",
-        "ecs:DeregisterContainerInstance",
-        "logs:CreateLogGroup",
-        "logs:CreateLogStream",
-        "logs:PutLogEvents",
-        "iam:GetInstanceProfile",
-        "iam:PassRole"
-      ],
-      "Resource": "*"
-    }
-  ]
-}
-EOF
+  policy = "${var.service_role_access_policy}"
 }
