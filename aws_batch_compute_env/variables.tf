@@ -80,6 +80,7 @@ variable "service_role_access_policy" {
         "ec2:CancelSpotFleetRequests",
         "ec2:ModifySpotFleetRequest",
         "ec2:TerminateInstances",
+        "ec2:DescribeInstanceStatus",
         "autoscaling:DescribeAccountLimits",
         "autoscaling:DescribeAutoScalingGroups",
         "autoscaling:DescribeLaunchConfigurations",
