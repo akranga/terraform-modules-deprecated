@@ -147,9 +147,12 @@ resource "aws_iam_policy" "service" {
       "Effect": "Allow",
       "Action": [
         "ec2:DescribeAccountAttributes",
+        "ec2:DescribeImages",
         "ec2:DescribeInstances",
+        "ec2:DescribeSnapshots",
         "ec2:DescribeSubnets",
         "ec2:DescribeSecurityGroups",
+        "ec2:DescribeTags",
         "ec2:DescribeKeyPairs",
         "ec2:DescribeSpotFleetInstances",
         "ec2:DescribeSpotFleetRequests",
