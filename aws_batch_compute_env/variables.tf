@@ -76,6 +76,7 @@ variable "service_role_access_policy" {
         "ec2:DescribeSpotFleetRequests",
         "ec2:DescribeSpotPriceHistory",
         "ec2:RequestSpotFleet",
+        "ec2:RequestSpotInstances",
         "ec2:CancelSpotFleetRequests",
         "ec2:ModifySpotFleetRequest",
         "ec2:TerminateInstances",
