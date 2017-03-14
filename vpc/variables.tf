@@ -23,3 +23,9 @@ variable "availability_zone" {
   description = "Availability zone for default subnet"
   default = ""
 }
+
+variable "cidr_block" {
+  type = "string"
+  description = "describe your variable"
+  default = "10.0.0.0/16"
+}
