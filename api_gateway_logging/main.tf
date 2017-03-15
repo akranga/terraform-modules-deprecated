@@ -46,6 +46,6 @@ resource "aws_iam_role_policy" "cloudwatch" {
 EOF
 
   lifecycle {
-    ignore_changes = "name"
+    ignore_changes = ["name"]
   }
 }

@@ -50,6 +50,6 @@ resource "aws_lambda_permission" "with_apig" {
   source_arn    = "arn:aws:execute-api:${element(split(":", "${var.lambda_arn}"), 3)}:${element(split(":", "${var.lambda_arn}"), 4)}:${var.rest_api_id}/*/${aws_api_gateway_method.main.http_method}${aws_api_gateway_resource.main.path}"
 
   lifecycle {
-    ignore_changes = "statement_id"
+    ignore_changes = ["statement_id"]
   }
 }
