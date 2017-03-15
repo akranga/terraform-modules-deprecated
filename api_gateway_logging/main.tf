@@ -22,8 +22,6 @@ EOF
 }
 
 resource "aws_iam_role_policy" "cloudwatch" {
-  ignore_changes = "name"
-
   name = "${uuid()}"
   role = "${var.api_gateway_id}"
   policy = <<EOF
@@ -46,4 +44,8 @@ resource "aws_iam_role_policy" "cloudwatch" {
     ]
 }
 EOF
+
+  lifecycle {
+    ignore_changes = "name"
+  }
 }
