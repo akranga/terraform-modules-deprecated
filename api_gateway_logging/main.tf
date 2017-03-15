@@ -22,9 +22,11 @@ EOF
 }
 
 resource "aws_iam_role_policy" "cloudwatch" {
-    name = "${uuid()}"
-    role = "${var.api_gateway_id}"
-    policy = <<EOF
+  ignore_changes = "name"
+
+  name = "${uuid()}"
+  role = "${var.api_gateway_id}"
+  policy = <<EOF
 {
     "Version": "2012-10-17",
     "Statement": [

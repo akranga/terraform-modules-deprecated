@@ -40,12 +40,14 @@ resource "aws_api_gateway_method_response" "200" {
 }
 # {aws_api_gateway_resource.main.path}
 resource "aws_lambda_permission" "with_apig" {
-    statement_id  = "${uuid()}"
-    action        = "lambda:InvokeFunction"
-    function_name = "${var.lambda_arn}"
-    principal     = "apigateway.amazonaws.com"
+  ignore_changes = "statement_id"
+
+  statement_id  = "${uuid()}"
+  action        = "lambda:InvokeFunction"
+  function_name = "${var.lambda_arn}"
+  principal     = "apigateway.amazonaws.com"
     # lifecycle {
     #   prevent_destroy = true
     # }
-    source_arn    = "arn:aws:execute-api:${element(split(":", "${var.lambda_arn}"), 3)}:${element(split(":", "${var.lambda_arn}"), 4)}:${var.rest_api_id}/*/${aws_api_gateway_method.main.http_method}${aws_api_gateway_resource.main.path}"
+  source_arn    = "arn:aws:execute-api:${element(split(":", "${var.lambda_arn}"), 3)}:${element(split(":", "${var.lambda_arn}"), 4)}:${var.rest_api_id}/*/${aws_api_gateway_method.main.http_method}${aws_api_gateway_resource.main.path}"
 }
