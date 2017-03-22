@@ -23,3 +23,9 @@ variable "resource_part" {
   type = "string"
   description = "uri of the resource relative to the parent"
 }
+
+variable "allow_origin" {
+  type = "string"
+  description = "CORS origin. Wildcard by default"
+  default = "*"
+}
