@@ -25,14 +25,17 @@ resource "aws_api_gateway_integration" "main" {
 }
 
 resource "aws_api_gateway_integration_response" "200" {
-  depends_on        = [ "aws_api_gateway_integration.main" ] 
+  depends_on  = ["aws_api_gateway_method.main",
+                 "aws_api_gateway_method.options",
+                 "aws_api_gateway_integration.main"]
+
   rest_api_id       = "${var.rest_api_id}"
   resource_id       = "${aws_api_gateway_resource.main.id}"
   http_method       = "${aws_api_gateway_method.main.http_method}"
   status_code       = "${aws_api_gateway_method_response.200.status_code}"
   response_parameters = {
     "method.response.header.Access-Control-Allow-Headers" = "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'",
-    "method.response.header.Access-Control-Allow-Methods" = "'*'",
+    "method.response.header.Access-Control-Allow-Methods" = "'POST,OPTIONS,GET,PUT,PATCH,DELETE'",
     "method.response.header.Access-Control-Allow-Origin"  = "'${var.allow_origin}'"
   }
 }
@@ -43,15 +46,22 @@ resource "aws_api_gateway_method_response" "200" {
   http_method = "${aws_api_gateway_method.main.http_method}"
   status_code = "200"
   response_parameters = { 
-    "method.response.header.Access-Control-Allow-Origin" = true
+    "method.response.header.Access-Control-Allow-Headers" = true,
+    "method.response.header.Access-Control-Allow-Methods" = true,
+    "method.response.header.Access-Control-Allow-Origin"  = true
   }
 }
 
 resource "aws_api_gateway_integration_response" "400" {
+  depends_on  = ["aws_api_gateway_method.main",
+                 "aws_api_gateway_method.options",
+                 "aws_api_gateway_integration.main"]
+
   rest_api_id = "${var.rest_api_id}"
   resource_id = "${aws_api_gateway_resource.main.id}"
   http_method = "${aws_api_gateway_method.main.http_method}"
   status_code = "${aws_api_gateway_method_response.400.status_code}"
+  selection_pattern = "4\\d{2}"
   response_templates = {
     "application/json" = <<EOF
 #set ($errorMessageObj = $util.parseJson($input.path('$.errorMessage')) {
@@ -76,10 +86,15 @@ resource "aws_api_gateway_method_response" "400" {
 }
 
 resource "aws_api_gateway_integration_response" "500" {
+  depends_on  = ["aws_api_gateway_method.main",
+                 "aws_api_gateway_method.options", 
+                 "aws_api_gateway_integration.main"]
+
   rest_api_id = "${var.rest_api_id}"
   resource_id = "${aws_api_gateway_resource.main.id}"
   http_method = "${aws_api_gateway_method.main.http_method}"
   status_code = "${aws_api_gateway_method_response.500.status_code}"
+  selection_pattern = "5\\d{2}"
   response_templates = {
     "application/json" = <<EOF
 #set ($errorMessageObj = $util.parseJson($input.path('$.errorMessage')))
@@ -132,7 +147,7 @@ resource "aws_api_gateway_method" "options" {
 
 resource "aws_api_gateway_integration" "options" {
   depends_on  = ["aws_api_gateway_method.main",
-                             "aws_api_gateway_method.options"] 
+                 "aws_api_gateway_method.options"] 
 
   rest_api_id = "${var.rest_api_id}"
   resource_id =  "${aws_api_gateway_resource.main.id}"
@@ -147,7 +162,8 @@ PARAMS
 
 resource "aws_api_gateway_integration_response" "options" {
   depends_on  = ["aws_api_gateway_method.main",
-                 "aws_api_gateway_method.options"]
+                 "aws_api_gateway_method.options",
+                 "aws_api_gateway_integration.options"]
 
   rest_api_id = "${var.rest_api_id}"
   resource_id = "${aws_api_gateway_resource.main.id}"
