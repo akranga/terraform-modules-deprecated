@@ -31,9 +31,9 @@ resource "aws_api_gateway_integration_response" "200" {
   http_method       = "${aws_api_gateway_method.main.http_method}"
   status_code       = "${aws_api_gateway_method_response.200.status_code}"
   response_parameters = {
-    "method.response.header.Access-Control-Allow-Headers" = true,
-    "method.response.header.Access-Control-Allow-Methods" = true,
-    "method.response.header.Access-Control-Allow-Origin"  = true
+    "method.response.header.Access-Control-Allow-Headers" = "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'",
+    "method.response.header.Access-Control-Allow-Methods" = "'*'",
+    "method.response.header.Access-Control-Allow-Origin"  = "'${var.allow_origin}'"
   }
 }
 
