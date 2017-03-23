@@ -50,6 +50,10 @@ resource "aws_api_gateway_method_response" "200" {
     "method.response.header.Access-Control-Allow-Methods" = true,
     "method.response.header.Access-Control-Allow-Origin"  = true
   }
+
+  provisioner "local-exec" {
+    command = "sleep 3"
+  }
 }
 
 resource "aws_api_gateway_integration_response" "400" {
@@ -82,6 +86,10 @@ resource "aws_api_gateway_method_response" "400" {
   response_models = { "application/json" = "Error" }
   response_parameters = { 
     "method.response.header.Access-Control-Allow-Origin" = true
+  }
+
+  provisioner "local-exec" {
+    command = "sleep 3"
   }
 }
 
@@ -118,6 +126,10 @@ resource "aws_api_gateway_method_response" "500" {
   response_models = { "application/json" = "Error" }
   response_parameters = { 
     "method.response.header.Access-Control-Allow-Origin" = true
+  }
+
+  provisioner "local-exec" {
+    command = "sleep 3"
   }
 }
 
@@ -186,5 +198,9 @@ resource "aws_api_gateway_method_response" "options" {
     "method.response.header.Access-Control-Allow-Headers" = true,
     "method.response.header.Access-Control-Allow-Methods" = true,
     "method.response.header.Access-Control-Allow-Origin"  = true
+  }
+
+  provisioner "local-exec" {
+    command = "sleep 3"
   }
 }
