@@ -25,9 +25,7 @@ resource "aws_api_gateway_integration" "main" {
 }
 
 resource "aws_api_gateway_integration_response" "200" {
-  depends_on  = ["aws_api_gateway_method.main",
-                 "aws_api_gateway_method.options",
-                 "aws_api_gateway_integration.main"]
+  depends_on  = ["aws_api_gateway_integration.main"]
 
   rest_api_id       = "${var.rest_api_id}"
   resource_id       = "${aws_api_gateway_resource.main.id}"
@@ -57,9 +55,7 @@ resource "aws_api_gateway_method_response" "200" {
 }
 
 resource "aws_api_gateway_integration_response" "400" {
-  depends_on  = ["aws_api_gateway_method.main",
-                 "aws_api_gateway_method.options",
-                 "aws_api_gateway_integration.main"]
+  depends_on  = ["aws_api_gateway_integration.main"]
 
   rest_api_id = "${var.rest_api_id}"
   resource_id = "${aws_api_gateway_resource.main.id}"
@@ -94,9 +90,7 @@ resource "aws_api_gateway_method_response" "400" {
 }
 
 resource "aws_api_gateway_integration_response" "500" {
-  depends_on  = ["aws_api_gateway_method.main",
-                 "aws_api_gateway_method.options", 
-                 "aws_api_gateway_integration.main"]
+  depends_on  = ["aws_api_gateway_integration.main"]
 
   rest_api_id = "${var.rest_api_id}"
   resource_id = "${aws_api_gateway_resource.main.id}"
@@ -158,8 +152,7 @@ resource "aws_api_gateway_method" "options" {
 
 
 resource "aws_api_gateway_integration" "options" {
-  depends_on  = ["aws_api_gateway_method.main",
-                 "aws_api_gateway_method.options"] 
+  depends_on  = ["aws_api_gateway_method.options"] 
 
   rest_api_id = "${var.rest_api_id}"
   resource_id =  "${aws_api_gateway_resource.main.id}"
@@ -173,9 +166,7 @@ PARAMS
 }
 
 resource "aws_api_gateway_integration_response" "options" {
-  depends_on  = ["aws_api_gateway_method.main",
-                 "aws_api_gateway_method.options",
-                 "aws_api_gateway_integration.options"]
+  depends_on  = ["aws_api_gateway_integration.options"]
 
   rest_api_id = "${var.rest_api_id}"
   resource_id = "${aws_api_gateway_resource.main.id}"
