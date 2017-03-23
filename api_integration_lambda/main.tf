@@ -182,8 +182,8 @@ resource "aws_api_gateway_integration_response" "options" {
   http_method = "${aws_api_gateway_method.options.http_method}"
   status_code = "200"
   response_parameters = {
-    "method.response.header.Access-Control-Allow-Headers" = "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'",
-    "method.response.header.Access-Control-Allow-Methods" = "'POST,OPTIONS,GET,PUT,PATCH,DELETE'",
+    # "method.response.header.Access-Control-Allow-Headers" = "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'",
+    # "method.response.header.Access-Control-Allow-Methods" = "'POST,OPTIONS,GET,PUT,PATCH,DELETE'",
     "method.response.header.Access-Control-Allow-Origin"  = "'${var.allow_origin}'"
   }
 }
@@ -195,8 +195,8 @@ resource "aws_api_gateway_method_response" "options" {
   status_code = "200"
   response_models = { "application/json" = "Empty" }
   response_parameters = {
-    "method.response.header.Access-Control-Allow-Headers" = true,
-    "method.response.header.Access-Control-Allow-Methods" = true,
+    # "method.response.header.Access-Control-Allow-Headers" = true,
+    # "method.response.header.Access-Control-Allow-Methods" = true,
     "method.response.header.Access-Control-Allow-Origin"  = true
   }
 
