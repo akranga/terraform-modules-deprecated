@@ -64,7 +64,10 @@ resource "aws_api_gateway_method" "options" {
 
 
 resource "aws_api_gateway_integration" "options" {
-  rest_api_id   = "${var.rest_api_id}"
+  depends_on  = ["aws_api_gateway_method.main",
+                             "aws_api_gateway_method.options"] 
+
+  rest_api_id = "${var.rest_api_id}"
   resource_id =  "${aws_api_gateway_resource.main.id}"
   http_method = "${aws_api_gateway_method.options.http_method}"
   type        = "MOCK"
@@ -76,7 +79,10 @@ PARAMS
 }
 
 resource "aws_api_gateway_integration_response" "options" {
-  rest_api_id   = "${var.rest_api_id}"
+  depends_on  = ["aws_api_gateway_method.main",
+                 "aws_api_gateway_method.options"]
+
+  rest_api_id = "${var.rest_api_id}"
   resource_id = "${aws_api_gateway_resource.main.id}"
   http_method = "${aws_api_gateway_method.options.http_method}"
   status_code = "200"
