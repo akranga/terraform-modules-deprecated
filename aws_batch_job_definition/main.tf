@@ -38,10 +38,18 @@ jq -c -M -s '.[0] * .[1]' \
   ${path.cwd}/.terraform/${var.name}-aws_batch_job_definition/cli-input-part2.json \
   > ${path.cwd}/.terraform/${var.name}-aws_batch_job_definition/cli-input.json
 
+echo "Create starting creation of job definition with:"
+cat ${path.cwd}/.terraform/${var.name}-aws_batch_job_definition/cli-input.json
+
 aws batch register-job-definition \
   --region us-east-1 \
   --cli-input-json file://${path.cwd}/.terraform/${var.name}-aws_batch_job_definition/cli-input.json \
-  | jq -M -r '.jobDefinitionArn' > ${path.cwd}/.terraform/${var.name}-aws_batch_job_definition/arn.txt
+    > ${path.cwd}/.terraform/${var.name}-aws_batch_job_definition/response.json
+
+echo "Job definition creation response:"
+cat ${path.cwd}/.terraform/${var.name}-aws_batch_job_definition/response.json
+
+jq -M -r '.jobDefinitionArn' > ${path.cwd}/.terraform/${var.name}-aws_batch_job_definition/arn.txt
 
 sleep 10
 
