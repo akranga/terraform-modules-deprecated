@@ -48,6 +48,7 @@ aws batch register-job-definition \
 
 echo "Job definition creation response:"
 cat ${path.cwd}/.terraform/${var.name}-aws_batch_job_definition/response.json
+echo "---"
 
 jq -M -r '.jobDefinitionArn' > ${path.cwd}/.terraform/${var.name}-aws_batch_job_definition/arn.txt
 
