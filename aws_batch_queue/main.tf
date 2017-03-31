@@ -19,19 +19,14 @@ resource "null_resource" "batch" {
   provisioner "local-exec" {
     command = <<THEEND
 
-for i in {1..60}; do
+for i in $(seq 1 60); do
   _status=$(aws batch describe-compute-environments \
     --region "${var.region}" \
     --compute-environments "${var.compute_env}" \
     | jq -r '.computeEnvironments[].status')
-
   echo "Waiting for compute environment "${var.compute_env}": $_status"
-
-  if [ "$_status" = "VALID" ]; then
-    break
-  else
-    sleep 10
-  fi
+  test "$_status" = "VALID" && break
+  sleep 10
 done
 
 mkdir -p ${path.cwd}/.terraform/${var.name}-aws_batch_queue
@@ -54,19 +49,14 @@ else
     --cli-input-json file://${path.cwd}/.terraform/${var.name}-aws_batch_queue/cli-input.json
 fi
 
-for i in {1..60}; do
+for i in $(seq 1 60); do
   _status=$(aws batch describe-job-queues \
     --region ${var.region} \
     --job-queues="${var.name}" \
     | jq -r '.jobQueues[].status')
-
   echo "Waiting for queue "${var.name}": $_status"
-
-  if [ "$_status" = "VALID" ]; then
-    break
-  else
-    sleep 10
-  fi
+  test "$_status" = "VALID" && break
+  sleep 10
 done
 
 THEEND
@@ -90,20 +80,18 @@ aws batch delete-job-queue \
 
 sleep 10
 
-for i in {1..60}; do
+for i in $(seq 1 60); do
   _status=$(aws batch describe-job-queues \
     --region ${var.region} \
     --job-queues="${var.name}" \
     | jq -r '.jobQueues[].status')
   echo "Waiting for "${var.name}": $_status"
-  if [ -z "$_status" ]; then
-    break
-  elif [ "$_status" = "INVALID" ]; then
+  test -z "$_status" && break
+  if test "$_status" = "INVALID"; then
     echo "Something went wrong with ${var.name} deletion"
     exit 1
-  else
-    sleep 10
   fi
+  sleep 10
 done
 
 THEEND

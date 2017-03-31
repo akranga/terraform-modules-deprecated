@@ -50,7 +50,7 @@ _status=$(aws batch describe-compute-environments \
     --compute-environments "${var.name}" \
     | jq -r '.computeEnvironments[].status')
 
-if [ -z "$$_status" ]; then
+if test -z "$_status"; then
   aws batch create-compute-environment \
     --region ${data.aws_availability_zone.vpc.region} \
     --cli-input-json file://${path.cwd}/.terraform/${var.name}-aws_batch_compute_env/compute-environment.json
@@ -60,17 +60,14 @@ else
     --cli-input-json file://${path.cwd}/.terraform/${var.name}-aws_batch_compute_env/compute-environment.json
 fi
 
-for i in {1..60}; do
+for i in $(seq 1 60); do
   _status=$(aws batch describe-compute-environments \
     --region ${data.aws_availability_zone.vpc.region} \
     --compute-environments "${var.name}" \
     | jq -r '.computeEnvironments[].status')
   echo "Waiting for "${var.name}": $_status"
-  if [ "$_status" = "VALID" ]; then
-    break
-  else
-    sleep 10
-  fi
+  test "$_status" = "VALID" && break
+  sleep 10
 done
 
 THEEND
@@ -94,25 +91,23 @@ aws batch delete-compute-environment \
 
 sleep 10
 
-for i in {1..60}; do
+for i in $(seq 1 60); do
   _status=$(aws batch describe-compute-environments \
     --region ${data.aws_availability_zone.vpc.region} \
     --compute-environments "${var.name}" \
     | jq -r '.computeEnvironments[].status')
   echo "Waiting for "${var.name}": $_status"
-  if [ -z "$_status" ]; then
-    break
-  elif [ "$_status" = "INVALID" ]; then
+  test -z "$_status" && break
+  if test "$_status" = "INVALID"; then
     echo "Something went wrong with ${var.name} deletion"
     exit 1
-  elif [ "$_status" = "VALID" ]; then
+  fi
+  if test "$_status" = "VALID"; then
     aws batch delete-compute-environment \
       --region ${data.aws_availability_zone.vpc.region} \
       --compute-environment ${var.name} || true
-    sleep 10
-  else
-    sleep 10
   fi
+  sleep 10
 done
 
 THEEND
