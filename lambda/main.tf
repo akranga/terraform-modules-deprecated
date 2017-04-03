@@ -25,7 +25,7 @@ resource "aws_lambda_function" "main" {
 # }
 
 resource "aws_iam_role" "iam_for_lambda" {
-    name_prefix = "invoke-"
+    name_prefix = "${substr(var.name, 0, 24)}-invoke-"
     assume_role_policy = <<EOF
 {
     "Version": "2012-10-17",
