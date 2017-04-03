@@ -132,7 +132,7 @@ resource "aws_iam_role" "service_role" {
 }
 
 resource "aws_iam_policy" "service" {
-  name = "${var.name}-AWSBatchServiceRole"
+  name_prefix = "${var.name}"
   description = "Allows batch execution on ${var.name} compute environment"
   policy = "${var.service_role_access_policy}"
 }
