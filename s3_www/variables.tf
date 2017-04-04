@@ -13,3 +13,9 @@ variable "init_script" {
   description = "script that will be executed after S3 will be created"
   default = ""
 }
+
+variable "protocol_schema" {
+  type        = "string"
+  description = "http or https"
+  default     = "http"
+}
