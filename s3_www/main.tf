@@ -10,8 +10,8 @@ resource "aws_s3_bucket" "main" {
     }
 
     website {
-        index_document = "index.html"
-        error_document = "error.html"
+        # index_document = "index.html"
+        # error_document = "error.html"
         redirect_all_requests_to = "http://${var.name}"
     }
 
