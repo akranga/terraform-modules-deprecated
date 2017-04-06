@@ -54,78 +54,78 @@ resource "aws_api_gateway_method_response" "200" {
   }
 }
 
-resource "aws_api_gateway_integration_response" "400" {
-  depends_on  = ["aws_api_gateway_integration.main"]
+# resource "aws_api_gateway_integration_response" "400" {
+#   depends_on  = ["aws_api_gateway_integration.main"]
 
-  rest_api_id = "${var.rest_api_id}"
-  resource_id = "${aws_api_gateway_resource.main.id}"
-  http_method = "${aws_api_gateway_method.main.http_method}"
-  status_code = "${aws_api_gateway_method_response.400.status_code}"
-  selection_pattern = "4\\d{2}"
-  response_templates = {
-    "application/json" = <<EOF
-#set ($errorMessageObj = $util.parseJson($input.path('$.errorMessage')) {
-  "message" : "$errorMessageObj.message"
-}
-EOF
-  }
-  response_parameters = { 
-    "method.response.header.Access-Control-Allow-Origin" = "'${var.allow_origin}'" 
-  }
-}
+#   rest_api_id = "${var.rest_api_id}"
+#   resource_id = "${aws_api_gateway_resource.main.id}"
+#   http_method = "${aws_api_gateway_method.main.http_method}"
+#   status_code = "${aws_api_gateway_method_response.400.status_code}"
+#   selection_pattern = "4\\d{2}"
+#   response_templates = {
+#     "application/json" = <<EOF
+# #set ($errorMessageObj = $util.parseJson($input.path('$.errorMessage')) {
+#   "message" : "$errorMessageObj.message"
+# }
+# EOF
+#   }
+#   response_parameters = { 
+#     "method.response.header.Access-Control-Allow-Origin" = "'${var.allow_origin}'" 
+#   }
+# }
 
-resource "aws_api_gateway_method_response" "400" {
-  rest_api_id = "${var.rest_api_id}"
-  resource_id = "${aws_api_gateway_resource.main.id}"
-  http_method = "${aws_api_gateway_method.main.http_method}"
-  status_code = "400"
-  response_models = { "application/json" = "Error" }
-  response_parameters = { 
-    "method.response.header.Access-Control-Allow-Origin" = true
-  }
+# resource "aws_api_gateway_method_response" "400" {
+#   rest_api_id = "${var.rest_api_id}"
+#   resource_id = "${aws_api_gateway_resource.main.id}"
+#   http_method = "${aws_api_gateway_method.main.http_method}"
+#   status_code = "400"
+#   response_models = { "application/json" = "Error" }
+#   response_parameters = { 
+#     "method.response.header.Access-Control-Allow-Origin" = true
+#   }
 
-  provisioner "local-exec" {
-    command = "sleep 3"
-  }
-}
+#   provisioner "local-exec" {
+#     command = "sleep 3"
+#   }
+# }
 
-resource "aws_api_gateway_integration_response" "500" {
-  depends_on  = ["aws_api_gateway_integration.main"]
+# resource "aws_api_gateway_integration_response" "500" {
+#   depends_on  = ["aws_api_gateway_integration.main"]
 
-  rest_api_id = "${var.rest_api_id}"
-  resource_id = "${aws_api_gateway_resource.main.id}"
-  http_method = "${aws_api_gateway_method.main.http_method}"
-  status_code = "${aws_api_gateway_method_response.500.status_code}"
-  selection_pattern = "5\\d{2}"
-  response_templates = {
-    "application/json" = <<EOF
-#set ($errorMessageObj = $util.parseJson($input.path('$.errorMessage')))
-{
-  "type" : "$errorMessageObj.errorType",
-  "message" : "$errorMessageObj.message",
-  "request-id" : "$errorMessageObj.requestId"
-}
-EOF
-  }
-  response_parameters = { 
-    "method.response.header.Access-Control-Allow-Origin" = "'${var.allow_origin}'" 
-  }
-}
+#   rest_api_id = "${var.rest_api_id}"
+#   resource_id = "${aws_api_gateway_resource.main.id}"
+#   http_method = "${aws_api_gateway_method.main.http_method}"
+#   status_code = "${aws_api_gateway_method_response.500.status_code}"
+#   selection_pattern = "5\\d{2}"
+#   response_templates = {
+#     "application/json" = <<EOF
+# #set ($errorMessageObj = $util.parseJson($input.path('$.errorMessage')))
+# {
+#   "type" : "$errorMessageObj.errorType",
+#   "message" : "$errorMessageObj.message",
+#   "request-id" : "$errorMessageObj.requestId"
+# }
+# EOF
+#   }
+#   response_parameters = { 
+#     "method.response.header.Access-Control-Allow-Origin" = "'${var.allow_origin}'" 
+#   }
+# }
 
-resource "aws_api_gateway_method_response" "500" {
-  rest_api_id = "${var.rest_api_id}"
-  resource_id = "${aws_api_gateway_resource.main.id}"
-  http_method = "${aws_api_gateway_method.main.http_method}"
-  status_code = "500"
-  response_models = { "application/json" = "Error" }
-  response_parameters = { 
-    "method.response.header.Access-Control-Allow-Origin" = true
-  }
+# resource "aws_api_gateway_method_response" "500" {
+#   rest_api_id = "${var.rest_api_id}"
+#   resource_id = "${aws_api_gateway_resource.main.id}"
+#   http_method = "${aws_api_gateway_method.main.http_method}"
+#   status_code = "500"
+#   response_models = { "application/json" = "Error" }
+#   response_parameters = { 
+#     "method.response.header.Access-Control-Allow-Origin" = true
+#   }
 
-  provisioner "local-exec" {
-    command = "sleep 3"
-  }
-}
+#   provisioner "local-exec" {
+#     command = "sleep 3"
+#   }
+# }
 
 resource "aws_lambda_permission" "with_apig" {
   statement_id  = "${uuid()}"
