@@ -39,6 +39,7 @@ resource "aws_api_gateway_integration_response" "200" {
 }
 
 resource "aws_api_gateway_method_response" "200" {
+  depends_on  = ["aws_api_gateway_method.main"] 
   rest_api_id = "${var.rest_api_id}"
   resource_id = "${aws_api_gateway_resource.main.id}"
   http_method = "${aws_api_gateway_method.main.http_method}"
