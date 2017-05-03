@@ -24,3 +24,9 @@ variable "client_key" {
   type = "string"
   description = "content of client cert private key kubernetes"
 }
+
+variable "namespace" {
+  type = "string"
+  description = "kubenretes namespace"
+  default = "default"
+}
