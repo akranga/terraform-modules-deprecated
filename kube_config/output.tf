@@ -14,6 +14,6 @@ output "client_key_filename" {
   value = "${local_file.client_key.filename}"
 }
 
-output "dummy_kubeconf_filename" {
+output "dummy_config_filename" {
   value = "${local_file.dummy_kubeconf.filename}"
 }
