@@ -13,3 +13,7 @@ output "client_pem_filename" {
 output "client_key_filename" {
   value = "${local_file.client_key.filename}"
 }
+
+output "dummy_kubeconf_filename" {
+  value = "${local_file.dummy_kubeconf.filename}"
+}

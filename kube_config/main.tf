@@ -65,4 +65,7 @@ resource "null_resource" "configure" {
   }
 }
 
-
+resource "local_file" "dummy_kubeconf" {
+  filename = "${path.cwd}/.terraform/${replace(element(split(":", element(split("://", "${var.server}"), 1)), 0), ".", "-")}-kubeconf.dummy"
+  content = "${file("${path.module}/kubeconfig.dummy)}"
+}
