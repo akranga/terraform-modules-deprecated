@@ -6,7 +6,7 @@ variable "server" {
 
 variable "apply" {
   type = "string"
-  description = "true or false: apply kubeconfig"
+  description = "true (default) or false: apply kubeconfig"
   default = "true"
 }
 
@@ -29,4 +29,10 @@ variable "namespace" {
   type = "string"
   description = "kubenretes namespace"
   default = "default"
+}
+
+variable "switch_context" {
+  type = "string"
+  description = "true or false (default): switch current context to this"
+  default = "false"
 }
