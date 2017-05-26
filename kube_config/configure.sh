@@ -14,4 +14,4 @@ kubectl config set-context ${cluster}  \
   --user=admin@${cluster} \
   --namespace=${namespace}
 
-[ "${switch}" = "true" ] && kubectl config use-context ${cluster}
+[ "${switch_context}" = "true" ] && kubectl config use-context ${cluster}

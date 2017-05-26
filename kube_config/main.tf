@@ -2,12 +2,13 @@ data "template_file" "kubeconfig" {
   template = "${file("${path.module}/configure.sh")}"
 
   vars {
-    cluster    = "${element(split(":", element(split("://", "${var.server}"), 1)), 0)}"
-    server     = "${var.server}"
-    ca_pem     = "${local_file.ca_pem.filename}"
-    client_key = "${local_file.client_key.filename}"
-    client_pem = "${local_file.client_pem.filename}"
-    namespace  = "${var.namespace}"
+    cluster     = "${element(split(":", element(split("://", "${var.server}"), 1)), 0)}"
+    server      = "${var.server}"
+    ca_pem      = "${local_file.ca_pem.filename}"
+    client_key  = "${local_file.client_key.filename}"
+    client_pem  = "${local_file.client_pem.filename}"
+    namespace   = "${var.namespace}"
+    use_context = "${var.switch_context}"
   }
 }
 

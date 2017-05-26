@@ -31,7 +31,7 @@ variable "namespace" {
   default = "default"
 }
 
-variable "switch_context" {
+variable "use_context" {
   type = "string"
   description = "true or false (default): switch current context to this"
   default = "false"
