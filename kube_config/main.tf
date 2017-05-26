@@ -8,7 +8,7 @@ data "template_file" "kubeconfig" {
     client_key  = "${local_file.client_key.filename}"
     client_pem  = "${local_file.client_pem.filename}"
     namespace   = "${var.namespace}"
-    use_context = "${var.switch_context}"
+    use_context = "${var.use_context}"
   }
 }
 
